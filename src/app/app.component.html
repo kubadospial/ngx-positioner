@@ -1,0 +1,144 @@
+<div class="panel">
+  <div class="panel__option">
+    isScrolledToTop: {{isScrolledToTop}}
+  </div>
+  <div class="panel__option">
+    isScrolledToBottom: {{isScrolledToBottom}}
+  </div>
+  <div class="panel__option panel__option_clickable"
+       (click)="moveToTop()">
+    move to top
+  </div>
+  <label for="topScrollSmooth"
+         class="panel__option panel__option_clickable">
+    is smooths scroll top:
+    <input type="checkbox"
+           id="topScrollSmooth"
+           [formControl]="topSmoothScrollToggler">
+  </label>
+  <div class="panel__option panel__option_clickable"
+       (click)="moveToBottom()">
+    move to bottom
+  </div>
+  <label for="bottomScrollSmooth"
+         class="panel__option panel__option_clickable">
+    is smooths scroll bottom:
+    <input type="checkbox"
+           id="bottomScrollSmooth"
+           [formControl]="bottomSmoothScrollToggler">
+  </label>
+</div>
+<div class="parent"
+     ngxPositioner
+     (isScrolledToTop)="onScrolledToTop($event)"
+     (isScrolledToBottom)="onScrolledToBottom($event)"
+     [settings]="positionerSettings"
+     [moveToTop$]="moveToTop$"
+     [moveToBottom$]="moveToBottom$">
+  <div class="child">
+    <div>lot of content</div>
+    <div>lot of content</div>
+    <div>lot of content</div>
+    <div>lot of content</div>
+    <div>lot of content</div>
+    <div>lot of content</div>
+    <div>lot of content</div>
+    <div>lot of content</div>
+    <div>lot of content</div>
+    <div>lot of content</div>
+    <div>lot of content</div>
+    <div>lot of content</div>
+    <div>lot of content</div>
+    <div>lot of content</div>
+    <div>lot of content</div>
+    <div>lot of content</div>
+    <div>lot of content</div>
+    <div>lot of content</div>
+    <div>lot of content</div>
+    <div>lot of content</div>
+    <div>lot of content</div>
+    <div>lot of content</div>
+    <div>lot of content</div>
+    <div>lot of content</div>
+    <div>lot of content</div>
+    <div>lot of content</div>
+    <div>lot of content</div>
+    <div>lot of content</div>
+    <div>lot of content</div>
+    <div>lot of content</div>
+    <div>lot of content</div>
+    <div>lot of content</div>
+    <div>lot of content</div>
+    <div>lot of content</div>
+    <div>lot of content</div>
+    <div>lot of content</div>
+    <div>lot of content</div>
+    <div>lot of content</div>
+    <div>lot of content</div>
+    <div>lot of content</div>
+    <div>lot of content</div>
+    <div>lot of content</div>
+    <div>lot of content</div>
+    <div>lot of content</div>
+    <div>lot of content</div>
+    <div>lot of content</div>
+    <div>lot of content</div>
+    <div>lot of content</div>
+    <div>lot of content</div>
+    <div>lot of content</div>
+    <div>lot of content</div>
+    <div>lot of content</div>
+    <div>lot of content</div>
+    <div>lot of content</div>
+    <div>lot of content</div>
+    <div>lot of content</div>
+    <div>lot of content</div>
+    <div>lot of content</div>
+    <div>lot of content</div>
+    <div>lot of content</div>
+    <div>lot of content</div>
+    <div>lot of content</div>
+    <div>lot of content</div>
+    <div>lot of content</div>
+    <div>lot of content</div>
+    <div>lot of content</div>
+    <div>lot of content</div>
+    <div>lot of content</div>
+    <div>lot of content</div>
+    <div>lot of content</div>
+    <div>lot of content</div>
+    <div>lot of content</div>
+    <div>lot of content</div>
+    <div>lot of content</div>
+    <div>lot of content</div>
+    <div>lot of content</div>
+    <div>lot of content</div>
+    <div>lot of content</div>
+    <div>lot of content</div>
+    <div>lot of content</div>
+    <div>lot of content</div>
+    <div>lot of content</div>
+    <div>lot of content</div>
+    <div>lot of content</div>
+    <div>lot of content</div>
+    <div>lot of content</div>
+    <div>lot of content</div>
+    <div>lot of content</div>
+    <div>lot of content</div>
+    <div>lot of content</div>
+    <div>lot of content</div>
+    <div>lot of content</div>
+    <div>lot of content</div>
+    <div>lot of content</div>
+    <div>lot of content</div>
+    <div>lot of content</div>
+    <div>lot of content</div>
+    <div>lot of content</div>
+    <div>lot of content</div>
+    <div>lot of content</div>
+    <div>lot of content</div>
+    <div>lot of content</div>
+    <div>lot of content</div>
+    <div>lot of content</div>
+  </div>
+</div>
