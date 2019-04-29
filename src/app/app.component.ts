@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
 import { Subject } from 'rxjs';
-import { FormControl } from '@angular/forms';
 import { Settings } from 'projects/ngx-positioner/src/lib/models';
-import { NgxPositionerService } from 'projects/ngx-positioner/src/lib/ngx-positioner.service';
 
 @Component({
   selector: 'app-root',
@@ -10,10 +8,6 @@ import { NgxPositionerService } from 'projects/ngx-positioner/src/lib/ngx-positi
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-
-  topSmoothScrollToggler = new FormControl(true);
-  bottomSmoothScrollToggler = new FormControl(true);
-
   moveToTop$ = new Subject<void>();
   moveToBottom$ = new Subject<void>();
 
@@ -28,17 +22,7 @@ export class AppComponent {
     }
   };
 
-  constructor(private positionerService: NgxPositionerService) {
-    this.topSmoothScrollToggler.valueChanges.subscribe(isTop => {
-      this.positionerSettings.smoothScroll.moveToTop = isTop;
-      this.positionerService.changeSettings$.next(this.positionerSettings);
-    });
-
-    this.bottomSmoothScrollToggler.valueChanges.subscribe(isbottom => {
-      this.positionerSettings.smoothScroll.moveToBottom = isbottom;
-      this.positionerService.changeSettings$.next(this.positionerSettings);
-    });
-  }
+  constructor() { }
 
   onScrolledToTop(isTop: boolean) {
     this.isScrolledToTop = isTop;

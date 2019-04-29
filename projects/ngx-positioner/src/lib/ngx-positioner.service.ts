@@ -12,7 +12,7 @@ export class NgxPositionerService {
         offset: {
             isScrolledToBottom: 0,
             isScrolledToTop: 0,
-            moveToBottom: 0,
+            moveToBottom: 100,
             moveToTop: 0,
         },
         delay: {

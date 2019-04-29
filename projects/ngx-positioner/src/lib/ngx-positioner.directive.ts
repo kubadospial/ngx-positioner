@@ -10,7 +10,7 @@ import { NgxPositionerService } from './ngx-positioner.service';
 export class NgxPositionerDirective implements OnInit, OnDestroy {
     @Input('settings')
     set settings(settings: Settings) {
-        this.mergeSetttings(settings);
+        this._mergeSetttings(settings);
     }
     @Input() moveToTop$ = new Subject<void>();
     @Input() moveToBottom$ = new Subject<void>();
@@ -20,6 +20,7 @@ export class NgxPositionerDirective implements OnInit, OnDestroy {
     private _parentElement: HTMLElement;
     private _relativeToElement: HTMLElement;
     private _destroy$ = new Subject<void>();
+    private _stopAllSubscriptions$ = new Subject<void>();
     private _scrollingEvent = new Subject<void>();
     private _settings: Settings;
 
@@ -33,6 +34,25 @@ export class NgxPositionerDirective implements OnInit, OnDestroy {
         this.isScrolledToTop.next(this._isScrolledToTopCondition);
         this.isScrolledToBottom.next(this._isScrolledToBottomCondition);
 
+        this._initializeSubscriptions();
+
+        this.positionerService.changeSettings$.pipe(
+            takeUntil(this._destroy$)
+        ).subscribe((settings: Settings) => {
+            this._stopAllSubscriptions$.next();
+            this._mergeSetttings(settings);
+            this._initializeSubscriptions();
+        });
+    }
+
+    ngOnDestroy() {
+        this._destroy$.next();
+        this._destroy$.complete();
+        this._stopAllSubscriptions$.next();
+        this._stopAllSubscriptions$.complete();
+    }
+
+    private _initializeSubscriptions() {
         fromEvent(this._parentElement, 'scroll').pipe(
             takeUntil(this._destroy$),
         ).subscribe(_ => this._scrollingEvent.next());
@@ -42,7 +62,7 @@ export class NgxPositionerDirective implements OnInit, OnDestroy {
             debounceTime(this._settings.debounceTime.isScrolledToTop),
             delay(this._settings.delay.isScrolledToTop),
             switchMap(_ => of(this._isScrolledToTopCondition)),
-            takeUntil(this._destroy$),
+            takeUntil(this._stopAllSubscriptions$),
         ).subscribe((isScrolledToTop: boolean) => this.isScrolledToTop.next(isScrolledToTop));
 
         // BOTTOM
@@ -50,32 +70,23 @@ export class NgxPositionerDirective implements OnInit, OnDestroy {
             debounceTime(this._settings.debounceTime.isScrolledToBottom),
             delay(this._settings.delay.isScrolledToBottom),
             switchMap(_ => of(this._isScrolledToBottomCondition)),
-            takeUntil(this._destroy$),
+            takeUntil(this._stopAllSubscriptions$),
         ).subscribe((isScrolledToBottom: boolean) => this.isScrolledToBottom.next(isScrolledToBottom));
 
         this.moveToTop$.pipe(
             debounceTime(this._settings.debounceTime.moveToTop),
             delay(this._settings.delay.moveToTop),
-            takeUntil(this._destroy$)
+            takeUntil(this._stopAllSubscriptions$)
         ).subscribe(_ => this._onMoveToTop());
 
         this.moveToBottom$.pipe(
             debounceTime(this._settings.debounceTime.moveToBottom),
             delay(this._settings.delay.moveToBottom),
-            takeUntil(this._destroy$)
+            takeUntil(this._stopAllSubscriptions$)
         ).subscribe(_ => this._onMoveToBottom());
-
-        this.positionerService.changeSettings$.pipe(
-            takeUntil(this._destroy$)
-        ).subscribe((settings: Settings) => this.mergeSetttings(settings));
     }
 
-    ngOnDestroy() {
-        this._destroy$.next();
-        this._destroy$.complete();
-    }
-
-    private mergeSetttings(settings: Settings) {
+    private _mergeSetttings(settings: Settings) {
         if (!!settings) {
             this._settings = {
                 ...settings,
@@ -147,6 +158,7 @@ export class NgxPositionerDirective implements OnInit, OnDestroy {
     }
 
     private get _isScrolledToBottomCondition(): boolean {
+        console.log(this._parentElement.scrollTop + this._parentElement.clientHeight);
         return this._parentElement.scrollTop + this._parentElement.clientHeight >= this._isScrolledToBottomOffset;
     }
 
@@ -163,6 +175,10 @@ export class NgxPositionerDirective implements OnInit, OnDestroy {
     }
 
     private get _moveToBottomOffset(): number {
-        return this._relativeToElement.clientHeight - this._settings.offset.moveToBottom;
+        let offsetElem = this._relativeToElement.clientHeight;
+        if (this._settings.offset.moveToBottom) {
+            offsetElem = this._parentElement.clientHeight + 38;
+        }
+        return offsetElem - this._settings.offset.moveToBottom;
     }
 }
