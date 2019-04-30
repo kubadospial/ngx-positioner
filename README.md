@@ -2,12 +2,16 @@
 If You want to use smooth scroll top/bottom on DOM element or check if element is at the bottom of scrollable element?
 Keep on reading!
 
-ngx-positioner is an Angular 6+ directive which allows to determin position of a child DOM element relatively to parent DOM element. So basicly the directive tells if the child element is at the bottom/top of scrollable element. 
-Additionaly You can move to bottom/top child element using smooth scroll or instant scroll.
+ngx-positioner is an Angular 6+ directive which allows to determin position of scrollable DOM element. So basicly the directive tells if scrollable element is scrolled top/bottom. 
+Additionaly You can move to bottom/top element using smooth scroll or instant scroll.
 
 ## Note
-
-Parent DOM element has to be scrollable and can have only one child, which is bigger than parent. Also directive uses Rxjs version >= 6.0.0
+```
+Directive requires Rxjs version >= 6.0.0.
+Current version doesn't support IE and Edge (detecting position and moving scroll).
+Directive uses JS scrolling method scrollTo() (https://caniuse.com/#search=scrollTo),
+so smooth scroll is not supported on Safari.
+```
 
 ## Demo
 Check the [link](https://stackblitz.com/edit/ngx-positioner)
@@ -116,8 +120,8 @@ smoothScroll: {
     moveToBottom: boolean, // default false
     moveToTop: boolean // default false
 },
-parentElement: string | querySelector* // (not required)
-childElement: string | querySelector // (required)
+scrollableElement: string // querySelector*
+
 ```
 **if not declared, host of directive will be assigned by default*
 
