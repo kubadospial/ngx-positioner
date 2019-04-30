@@ -15,7 +15,6 @@ export class AppComponent {
   isScrolledToBottom: boolean;
 
   positionerSettings: Settings = {
-    childElement: '.child',
     smoothScroll: {
       moveToTop: true,
       moveToBottom: true

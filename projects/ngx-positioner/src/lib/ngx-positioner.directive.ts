@@ -6,6 +6,7 @@ import { takeUntil, debounceTime, delay, switchMap } from 'rxjs/operators';
 import { Settings } from './models';
 import { NgxPositionerService } from './ngx-positioner.service';
 
+
 @Directive({ selector: '[ngxPositioner]' })
 export class NgxPositionerDirective implements OnInit, OnDestroy {
     @Input('settings')
@@ -17,8 +18,8 @@ export class NgxPositionerDirective implements OnInit, OnDestroy {
     @Output() isScrolledToTop = new EventEmitter<boolean>();
     @Output() isScrolledToBottom = new EventEmitter<boolean>();
 
-    private _parentElement: HTMLElement;
-    private _relativeToElement: HTMLElement;
+    private _scrollableElement: HTMLElement;
+    private _diffHolder: number;
     private _destroy$ = new Subject<void>();
     private _stopAllSubscriptions$ = new Subject<void>();
     private _scrollingEvent = new Subject<void>();
@@ -53,7 +54,7 @@ export class NgxPositionerDirective implements OnInit, OnDestroy {
     }
 
     private _initializeSubscriptions() {
-        fromEvent(this._parentElement, 'scroll').pipe(
+        fromEvent(this._scrollableElement, 'scroll').pipe(
             takeUntil(this._destroy$),
         ).subscribe(_ => this._scrollingEvent.next());
 
@@ -107,42 +108,30 @@ export class NgxPositionerDirective implements OnInit, OnDestroy {
                     ...settings.smoothScroll,
                 }
             };
-            this._setRelativeElement();
-            this._setScrollToElement();
+            this._setScrollableElement();
         } else {
             console.error(`%c Invalid settings object! `, 'color: #fff');
         }
     }
 
-    private _setRelativeElement() {
-        if (!!this._settings.childElement) {
-            const relEl: HTMLElement = this.document.querySelector(this._settings.childElement);
-            if (!!relEl) {
-                this._relativeToElement = relEl;
-            } else {
-                console.error(`%c ERROR: Cannot find element ${this._settings.childElement} in DOM `, 'color: #fff');
-            }
-        } else {
-            console.error(`%c relativeElement is required! `, 'color: #fff');
-        }
-    }
-
-    private _setScrollToElement() {
-        this._parentElement = this.el.nativeElement;
-        if (!!this._settings.parentElement) {
-            const scrollEl: HTMLElement = this.document.querySelector(this._settings.parentElement);
+    private _setScrollableElement() {
+        this._scrollableElement = this.el.nativeElement;
+        if (!!this._settings.scrollableElement) {
+            const scrollEl: HTMLElement = this.document.querySelector(this._settings.scrollableElement);
             if (!!scrollEl) {
-                this._parentElement = scrollEl;
+                this._scrollableElement = scrollEl;
+            } else {
+                console.error(`%c Couldn't find ${this._settings.scrollableElement} in DOM! `, 'color: #fff');
             }
         }
     }
 
     private _onMoveToTop() {
-        this._parentElement.scrollTo({ behavior: this._moveToTopBehavior, top: this._moveToTopOffset });
+        this._scrollableElement.scrollTo({ behavior: this._moveToTopBehavior, top: this._moveToTopOffset });
     }
 
     private _onMoveToBottom() {
-        this._parentElement.scrollTo({ behavior: this._moveToBottomBehavior, top: this._moveToBottomOffset });
+        this._scrollableElement.scrollTo({ behavior: this._moveToBottomBehavior, top: this._moveToBottomOffset });
     }
 
     private get _moveToTopBehavior(): ScrollBehavior {
@@ -154,12 +143,11 @@ export class NgxPositionerDirective implements OnInit, OnDestroy {
     }
 
     private get _isScrolledToTopCondition(): boolean {
-        return this._parentElement.scrollTop <= this._isScrolledToTopOffset;
+        return this._scrollableElement.scrollTop <= this._isScrolledToTopOffset;
     }
 
     private get _isScrolledToBottomCondition(): boolean {
-        console.log(this._parentElement.scrollTop + this._parentElement.clientHeight);
-        return this._parentElement.scrollTop + this._parentElement.clientHeight >= this._isScrolledToBottomOffset;
+        return this._scrollableElement.scrollTop + this._scrollableElement.clientHeight >= this._isScrolledToBottomOffset;
     }
 
     private get _isScrolledToTopOffset() {
@@ -167,7 +155,7 @@ export class NgxPositionerDirective implements OnInit, OnDestroy {
     }
 
     private get _isScrolledToBottomOffset(): number {
-        return this._parentElement.scrollHeight - this._settings.offset.isScrolledToBottom;
+        return this._scrollableElement.scrollHeight - this._settings.offset.isScrolledToBottom;
     }
 
     private get _moveToTopOffset(): number {
@@ -175,10 +163,14 @@ export class NgxPositionerDirective implements OnInit, OnDestroy {
     }
 
     private get _moveToBottomOffset(): number {
-        let offsetElem = this._relativeToElement.clientHeight;
-        if (this._settings.offset.moveToBottom) {
-            offsetElem = this._parentElement.clientHeight + 38;
+        return this._scrollableElement.offsetHeight - this._settings.offset.moveToBottom + this._moveBottDiffOffset;
+    }
+
+    private get _moveBottDiffOffset() {
+        const diff = this._scrollableElement.scrollHeight - (this._scrollableElement.scrollTop + this._scrollableElement.offsetHeight);
+        if (diff !== 0) {
+            this._diffHolder = diff;
         }
-        return offsetElem - this._settings.offset.moveToBottom;
+        return this._diffHolder;
     }
 }

@@ -13,10 +13,7 @@ export class SettingsComponent implements OnInit {
 
     @Output() settingChanges = new EventEmitter<Settings>();
 
-    settings: Settings = {
-        childElement: '.child',
-
-    };
+    settings: Settings;
 
     settingsForm = new FormGroup({
 
@@ -50,7 +47,6 @@ export class SettingsComponent implements OnInit {
             debounceTime(300)
         ).subscribe((settings: Settings) => {
             const sets = { ...settings, childElement: '.child' };
-            console.log(sets);
             this.positionerService.changeSettings$.next(sets);
         });
     }

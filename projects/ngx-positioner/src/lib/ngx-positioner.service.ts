@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { Settings } from './models';
+import { detect } from 'detect-browser';
 
 @Injectable()
 export class NgxPositionerService {
@@ -12,7 +13,7 @@ export class NgxPositionerService {
         offset: {
             isScrolledToBottom: 0,
             isScrolledToTop: 0,
-            moveToBottom: 100,
+            moveToBottom: 0,
             moveToTop: 0,
         },
         delay: {
@@ -30,7 +31,20 @@ export class NgxPositionerService {
         smoothScroll: {
             moveToBottom: false,
             moveToTop: false
-        },
-        childElement: ''
+        }
     };
+
+    get detectBrowser(): string {
+        const broName = detect().name;
+        return Browser[broName]
+    }
+
+}
+
+enum Browser {
+    chrome = 'CHROME',
+    firefox = 'FIREFOX',
+    ios = 'SAFARI',
+    edge = 'edgeEDGE',
+    ie = 'IE'
 }

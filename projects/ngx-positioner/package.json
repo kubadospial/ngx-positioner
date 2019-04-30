@@ -25,5 +25,8 @@
     "url": "https://github.com/kubadospial/ngx-positioner/issues"
   },
   "homepage": "https://github.com/kubadospial/ngx-positioner#readme",
-  "readmeFilename": "README.md"
+  "readmeFilename": "README.md",
+  "dependencies": {
+    "detect-browser": "^4.5.0"
+  }
 }
