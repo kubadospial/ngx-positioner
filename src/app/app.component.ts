@@ -14,6 +14,8 @@ export class AppComponent {
   isScrolledToTop: boolean;
   isScrolledToBottom: boolean;
 
+  areVisibleSettings = false;
+
   positionerSettings: Settings = {
     smoothScroll: {
       moveToTop: true,

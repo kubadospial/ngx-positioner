@@ -8,6 +8,12 @@
   @media (min-width: 1024px) {
     display: flex;
   }
+  &_settings-active {
+    @media (max-width: 600px) {
+      overflow-y: scroll;
+      max-height: 100vh;
+    }
+  }
   &__option {
     padding: 10px;
     margin: 10px;
@@ -24,6 +30,13 @@
     justify-content: center;
     align-items: center;
     box-shadow: 0px 0px 15px #7d7d7d;
+    @media (max-width: 600px) {
+      flex-direction: column;
+    }
+  }
+  &__settings-toggler {
+    cursor: pointer;
+    padding: 10px 20px;
   }
 }
 

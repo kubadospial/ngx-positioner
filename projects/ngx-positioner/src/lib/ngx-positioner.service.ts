@@ -29,8 +29,8 @@ export class NgxPositionerService {
             moveToTop: 0,
         },
         smoothScroll: {
-            moveToBottom: false,
-            moveToTop: false
+            moveToBottom: true,
+            moveToTop: true
         }
     };
 
