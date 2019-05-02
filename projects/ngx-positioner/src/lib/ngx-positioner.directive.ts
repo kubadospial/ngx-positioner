@@ -54,7 +54,7 @@ export class NgxPositionerDirective implements OnInit, OnDestroy {
 
     private _initializeSubscriptions() {
         fromEvent(this._scrollableElement, 'scroll').pipe(
-            takeUntil(this._destroy$),
+            takeUntil(this._stopAllSubscriptions$),
         ).subscribe(_ => this._scrollingEvent.next());
 
         // TOP
