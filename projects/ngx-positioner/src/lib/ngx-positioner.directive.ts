@@ -1,7 +1,7 @@
 import { Directive, ElementRef, OnInit, Input, Output, EventEmitter, OnDestroy, Inject } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
-import { fromEvent, Subject, of } from 'rxjs';
-import { takeUntil, debounceTime, delay, switchMap } from 'rxjs/operators';
+import { fromEvent, Subject, of, Observable } from 'rxjs';
+import { takeUntil, debounceTime, delay, switchMap, tap } from 'rxjs/operators';
 
 import { Settings } from './models';
 import { NgxPositionerService } from './ngx-positioner.service';
@@ -19,7 +19,6 @@ export class NgxPositionerDirective implements OnInit, OnDestroy {
     @Output() isScrolledToBottom = new EventEmitter<boolean>();
 
     private _scrollableElement: HTMLElement;
-    private _diffHolder: number;
     private _destroy$ = new Subject<void>();
     private _stopAllSubscriptions$ = new Subject<void>();
     private _scrollingEvent = new Subject<void>();
@@ -83,8 +82,9 @@ export class NgxPositionerDirective implements OnInit, OnDestroy {
         this.moveToBottom$.pipe(
             debounceTime(this._settings.debounceTime.moveToBottom),
             delay(this._settings.delay.moveToBottom),
-            takeUntil(this._stopAllSubscriptions$)
-        ).subscribe(_ => this._onMoveToBottom());
+            takeUntil(this._stopAllSubscriptions$),
+            switchMap(_ => this._onMoveToBottom())
+        ).subscribe(height => this._scrollableElement.scroll({ behavior: this._moveToBottomBehavior, top: height + this._moveBottDiffOffset }))
     }
 
     private _mergeSetttings(settings: Settings) {
@@ -127,11 +127,14 @@ export class NgxPositionerDirective implements OnInit, OnDestroy {
     }
 
     private _onMoveToTop() {
-        this._scrollableElement.scrollTo({ behavior: this._moveToTopBehavior, top: this._moveToTopOffset });
+        this._scrollableElement.scroll({ behavior: this._moveToTopBehavior, top: this._moveToTopOffset });
     }
 
-    private _onMoveToBottom() {
-        this._scrollableElement.scrollTo({ behavior: this._moveToBottomBehavior, top: this._moveToBottomOffset });
+    private _onMoveToBottom(): Observable<number> {
+        return of(this._moveToBottomOffset).pipe(
+            tap(height => this._scrollableElement.scroll({ behavior: this._moveToBottomBehavior, top: height })),
+            delay(this._settings.smoothScroll.moveToBottom ? 600 : 0)
+        )
     }
 
     private get _moveToTopBehavior(): ScrollBehavior {
@@ -163,14 +166,18 @@ export class NgxPositionerDirective implements OnInit, OnDestroy {
     }
 
     private get _moveToBottomOffset(): number {
-        return this._scrollableElement.offsetHeight - this._settings.offset.moveToBottom + this._moveBottDiffOffset;
+        if (!this._settings.offset.moveToBottom) {
+            return this._scrollableElement.scrollHeight;
+        } else {
+            return this._scrollableElement.offsetHeight - this._settings.offset.moveToBottom;
+        }
     }
 
     private get _moveBottDiffOffset() {
-        const diff = this._scrollableElement.scrollHeight - (this._scrollableElement.scrollTop + this._scrollableElement.offsetHeight);
-        if (diff !== 0) {
-            this._diffHolder = diff;
+        let diff = this._scrollableElement.scrollTop - this._scrollableElement.offsetHeight;
+        if (!!this._settings.offset.moveToBottom) {
+            diff = (this._scrollableElement.scrollHeight - (this._scrollableElement.scrollTop + this._scrollableElement.offsetHeight)) - this._settings.offset.moveToBottom;
         }
-        return this._diffHolder;
+        return diff;
     }
 }
