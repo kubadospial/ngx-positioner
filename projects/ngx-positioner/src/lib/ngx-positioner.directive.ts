@@ -121,7 +121,7 @@ export class NgxPositionerDirective implements OnInit, OnDestroy {
             if (!!scrollEl) {
                 this._scrollableElement = scrollEl;
             } else {
-                console.error(`%c Couldn't find ${this._settings.scrollableElement} in DOM! `, 'color: #fff');
+                console.error(`%c Couldn't find ${ this._settings.scrollableElement } in DOM! `, 'color: #fff');
             }
         }
     }

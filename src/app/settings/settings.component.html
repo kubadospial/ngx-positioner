@@ -1,107 +1,108 @@
 <div class="settings__container"
      [formGroup]="settingsForm">
-    <div class="settings__section"
-         formGroupName="smoothScroll">
-        <label for="moveToTop"
-               class="settings__option">
-            Smooths scroll top:
-            <input type="checkbox"
-                   id="moveToTop"
-                   formControlName="moveToTop">
-        </label>
-        <label for="moveToBottom"
-               class="settings__option">
-            Smooths scroll bottom:
-            <input type="checkbox"
-                   id="moveToBottom"
-                   formControlName="moveToBottom">
-        </label>
-    </div>
-    <div class="settings__section"
-         formGroupName="offset">
-        <p>Offset</p>
-        <label for="offsetIsScrolledToBottom"
-               class="settings__option">IsScrolledBottom
-            <input type="number"
-                   id="offsetIsScrolledToBottom"
-                   formControlName="isScrolledToBottom">
-        </label>
-        <label for="offsetIsScrolledToTop"
-               class="settings__option">
-            IsScrolledTop
-            <input type="number"
-                   id="offsetIsScrolledToTop"
-                   formControlName="isScrolledToTop">
-        </label>
-        <label for="offsetMoveTop"
-               class="settings__option">
-            MoveTop
-            <input type="number"
-                   id="offsetMoveTop"
-                   formControlName="moveToTop">
-        </label>
-        <label for="offsetMoveBottom"
-               class="settings__option">MoveBottom</label>
-        <input type="number"
-               id="offsetMoveBottom"
-               formControlName="moveToBottom">
-    </div>
-    <div class="settings__section"
-         formGroupName="delay">
-        <p>Delay</p>
-        <label for="offsetIsScrolledToBottom"
-               class="settings__option">IsScrolledBottom
-            <input type="number"
-                   id="offsetIsScrolledToBottom"
-                   formControlName="isScrolledToBottom">
-        </label>
-        <label for="offsetIsScrolledToTop"
-               class="settings__option">
-            IsScrolledTop
-            <input type="number"
-                   id="offsetIsScrolledToTop"
-                   formControlName="isScrolledToTop">
-        </label>
-        <label for="offsetMoveTop"
-               class="settings__option">
-            MoveTop
-            <input type="number"
-                   id="offsetMoveTop"
-                   formControlName="moveToTop">
-        </label>
-        <label for="offsetMoveBottom"
-               class="settings__option">MoveBottom</label>
-        <input type="number"
-               id="offsetMoveBottom"
-               formControlName="moveToBottom">
-    </div>
-    <div class="settings__section"
-         formGroupName="debounceTime">
-        <p>Debounce time</p>
-        <label for="offsetIsScrolledToBottom"
-               class="settings__option">IsScrolledBottom
-            <input type="number"
-                   id="offsetIsScrolledToBottom"
-                   formControlName="isScrolledToBottom">
-        </label>
-        <label for="offsetIsScrolledToTop"
-               class="settings__option">
-            IsScrolledTop
-            <input type="number"
-                   id="offsetIsScrolledToTop"
-                   formControlName="isScrolledToTop">
-        </label>
-        <label for="offsetMoveTop"
-               class="settings__option">
-            MoveTop
-            <input type="number"
-                   id="offsetMoveTop"
-                   formControlName="moveToTop">
-        </label>
-        <label for="offsetMoveBottom"
-               class="settings__option">MoveBottom</label>
-        <input type="number"
-               id="offsetMoveBottom"
-               formControlName="moveToBottom">
-    </div>
+       <div class="settings__section"
+            formGroupName="smoothScroll">
+              <p>Smoothscroll</p>
+              <label for="moveToTop"
+                     class="settings__option">
+                     Scroll top:
+                     <input type="checkbox"
+                            id="moveToTop"
+                            formControlName="moveToTop">
+              </label>
+              <label for="moveToBottom"
+                     class="settings__option">
+                     Scroll bottom:
+                     <input type="checkbox"
+                            id="moveToBottom"
+                            formControlName="moveToBottom">
+              </label>
+       </div>
+       <div class="settings__section"
+            formGroupName="offset">
+              <p>Offset</p>
+              <label for="offsetIsScrolledToBottom"
+                     class="settings__option">IsScrolledBottom
+                     <input type="number"
+                            id="offsetIsScrolledToBottom"
+                            formControlName="isScrolledToBottom">
+              </label>
+              <label for="offsetIsScrolledToTop"
+                     class="settings__option">
+                     IsScrolledTop
+                     <input type="number"
+                            id="offsetIsScrolledToTop"
+                            formControlName="isScrolledToTop">
+              </label>
+              <label for="offsetMoveTop"
+                     class="settings__option">
+                     MoveTop
+                     <input type="number"
+                            id="offsetMoveTop"
+                            formControlName="moveToTop">
+              </label>
+              <label for="offsetMoveBottom"
+                     class="settings__option">MoveBottom</label>
+              <input type="number"
+                     id="offsetMoveBottom"
+                     formControlName="moveToBottom">
+       </div>
+       <div class="settings__section"
+            formGroupName="delay">
+              <p>Delay</p>
+              <label for="offsetIsScrolledToBottom"
+                     class="settings__option">IsScrolledBottom
+                     <input type="number"
+                            id="offsetIsScrolledToBottom"
+                            formControlName="isScrolledToBottom">
+              </label>
+              <label for="offsetIsScrolledToTop"
+                     class="settings__option">
+                     IsScrolledTop
+                     <input type="number"
+                            id="offsetIsScrolledToTop"
+                            formControlName="isScrolledToTop">
+              </label>
+              <label for="offsetMoveTop"
+                     class="settings__option">
+                     MoveTop
+                     <input type="number"
+                            id="offsetMoveTop"
+                            formControlName="moveToTop">
+              </label>
+              <label for="offsetMoveBottom"
+                     class="settings__option">MoveBottom</label>
+              <input type="number"
+                     id="offsetMoveBottom"
+                     formControlName="moveToBottom">
+       </div>
+       <div class="settings__section"
+            formGroupName="debounceTime">
+              <p>Debounce time</p>
+              <label for="offsetIsScrolledToBottom"
+                     class="settings__option">IsScrolledBottom
+                     <input type="number"
+                            id="offsetIsScrolledToBottom"
+                            formControlName="isScrolledToBottom">
+              </label>
+              <label for="offsetIsScrolledToTop"
+                     class="settings__option">
+                     IsScrolledTop
+                     <input type="number"
+                            id="offsetIsScrolledToTop"
+                            formControlName="isScrolledToTop">
+              </label>
+              <label for="offsetMoveTop"
+                     class="settings__option">
+                     MoveTop
+                     <input type="number"
+                            id="offsetMoveTop"
+                            formControlName="moveToTop">
+              </label>
+              <label for="offsetMoveBottom"
+                     class="settings__option">MoveBottom</label>
+              <input type="number"
+                     id="offsetMoveBottom"
+                     formControlName="moveToBottom">
+       </div>
 </div>

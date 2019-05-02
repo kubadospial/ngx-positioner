@@ -6,6 +6,7 @@ import { debounceTime } from 'rxjs/operators';
 
 @Component({
     selector: '.settings',
+    styleUrls: ['./settings.component.scss'],
     templateUrl: 'settings.component.html'
 })
 

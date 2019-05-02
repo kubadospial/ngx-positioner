@@ -1,17 +1,11 @@
 <div class="panel">
-  <div class="panel__option">
-    isScrolledToTop: {{isScrolledToTop}}
-  </div>
-  <div class="panel__option">
-    isScrolledToBottom: {{isScrolledToBottom}}
-  </div>
-  <div class="panel__option panel__option_clickable"
-       (click)="moveToTop()">
-    move to top
-  </div>
-  <div class="panel__option panel__option_clickable"
-       (click)="moveToBottom()">
-    move to bottom
+  <div class="panel__navigation">
+    <div class="panel__option">isScrolledToTop: {{isScrolledToTop}}</div>
+    <div class="panel__option">isScrolledToBottom: {{isScrolledToBottom}}</div>
+    <div class="panel__option panel__option_clickable"
+         (click)="moveToTop()">move to top</div>
+    <div class="panel__option panel__option_clickable"
+         (click)="moveToBottom()">move to bottom</div>
   </div>
   <div class="settings"></div>
 </div>
