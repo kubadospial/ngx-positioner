@@ -5,7 +5,8 @@
   "description": "Angular directive that helps to manipulate DOM elements. Can check if element is at the bottom/top of relativeElement or move to bottom / top of relativeElement",
   "peerDependencies": {
     "@angular/common": "^7.2.0",
-    "@angular/core": "^7.2.0"
+    "@angular/core": "^7.2.0",
+    "rxjs": "~6.3.3"
   },
   "keywords": [
     "angular directive",
