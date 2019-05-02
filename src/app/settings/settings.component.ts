@@ -1,8 +1,7 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { NgxPositionerService } from 'projects/ngx-positioner/src/lib/ngx-positioner.service';
-import { Settings } from 'projects/ngx-positioner/src/lib/models';
 import { debounceTime } from 'rxjs/operators';
+import { Settings, NgxPositionerService } from 'ngx-positioner';
 
 @Component({
     selector: '.settings',

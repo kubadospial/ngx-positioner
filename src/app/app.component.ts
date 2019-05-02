@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Subject } from 'rxjs';
-import { Settings } from 'projects/ngx-positioner/src/lib/models';
+import { Settings } from 'ngx-positioner';
 
 @Component({
   selector: 'app-root',
