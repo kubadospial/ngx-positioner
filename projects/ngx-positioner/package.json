@@ -8,13 +8,16 @@
     "@angular/core": "^7.2.0"
   },
   "keywords": [
-    "angular library",
+    "angular directive",
     "angular",
     "library",
+    "directive",
     "ngx",
     "positioner",
     "position",
-    "chat"
+    "chat",
+    "scrollbar",
+    "scroll"
   ],
   "repository": {
     "url": "https://github.com/kubadospial/ngx-positioner.git",
@@ -25,8 +28,5 @@
     "url": "https://github.com/kubadospial/ngx-positioner/issues"
   },
   "homepage": "https://github.com/kubadospial/ngx-positioner#readme",
-  "readmeFilename": "README.md",
-  "dependencies": {
-    "detect-browser": "^4.5.0"
-  }
+  "readmeFilename": "README.md"
 }
