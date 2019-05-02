@@ -6,6 +6,5 @@ export interface Settings {
     delay?: PositionEvents;
     debounceTime?: PositionEvents;
     smoothScroll?: MoveEvents<boolean>;
-    parentElement?: string;
-    childElement: string;
+    scrollableElement?: string;
 }

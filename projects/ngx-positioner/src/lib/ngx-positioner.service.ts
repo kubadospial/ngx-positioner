@@ -28,9 +28,10 @@ export class NgxPositionerService {
             moveToTop: 0,
         },
         smoothScroll: {
-            moveToBottom: false,
-            moveToTop: false
-        },
-        childElement: ''
+            moveToBottom: true,
+            moveToTop: true
+        }
     };
+
 }
+
