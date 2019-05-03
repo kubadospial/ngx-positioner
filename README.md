@@ -14,7 +14,7 @@ so smooth scroll is not supported on Safari.
 ```
 
 ## Demo
-Check the [link](https://stackblitz.com/edit/ngx-positioner)
+Check the [link](https://kubadospial.github.io/ngx-positioner/)
 
 ## Usage
 
