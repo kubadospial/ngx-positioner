@@ -1,0 +1,36 @@
+import { ElementRef, OnInit, EventEmitter, OnDestroy } from '@angular/core';
+import { Subject } from 'rxjs';
+import { Settings } from './models';
+import { NgxPositionerService } from './ngx-positioner.service';
+export declare class NgxPositionerDirective implements OnInit, OnDestroy {
+    private el;
+    private document;
+    private positionerService;
+    settings: Settings;
+    moveToTop$: Subject<void>;
+    moveToBottom$: Subject<void>;
+    isScrolledToTop: EventEmitter<boolean>;
+    isScrolledToBottom: EventEmitter<boolean>;
+    private _scrollableElement;
+    private _destroy$;
+    private _stopAllSubscriptions$;
+    private _scrollingEvent;
+    private _settings;
+    constructor(el: ElementRef, document: any, positionerService: NgxPositionerService);
+    ngOnInit(): void;
+    ngOnDestroy(): void;
+    private _initializeSubscriptions;
+    private _mergeSetttings;
+    private _setScrollableElement;
+    private _onMoveToTop;
+    private _onMoveToBottom;
+    private readonly _moveToTopBehavior;
+    private readonly _moveToBottomBehavior;
+    private readonly _isScrolledToTopCondition;
+    private readonly _isScrolledToBottomCondition;
+    private readonly _isScrolledToTopOffset;
+    private readonly _isScrolledToBottomOffset;
+    private readonly _moveToTopOffset;
+    private readonly _moveToBottomOffset;
+    private readonly _moveBottDiffOffset;
+}
