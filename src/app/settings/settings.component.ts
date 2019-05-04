@@ -47,6 +47,7 @@ export class SettingsComponent implements OnInit {
             debounceTime(300)
         ).subscribe((settings: Settings) => {
             const sets = { ...settings, childElement: '.child' };
+            this.positionerService.initialSettings = sets;
             this.positionerService.changeSettings$.next(sets);
         });
     }
