@@ -9,7 +9,8 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "build:project": "ng build ngx-positioner"
+    "build:project": "ng build ngx-positioner",
+    "build:github-pages": "ng build --prod --base-href 'https://kubadospial.github.io/ngx-positioner/' && ngh"
   },
   "private": true,
   "dependencies": {

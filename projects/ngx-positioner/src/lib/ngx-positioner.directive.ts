@@ -84,7 +84,8 @@ export class NgxPositionerDirective implements OnInit, OnDestroy {
             delay(this._settings.delay.moveToBottom),
             takeUntil(this._stopAllSubscriptions$),
             switchMap(_ => this._onMoveToBottom())
-        ).subscribe(height => this._scrollableElement.scroll({ behavior: this._moveToBottomBehavior, top: height + this._moveBottDiffOffset }))
+        ).subscribe(height =>
+            this._scrollableElement.scroll({ behavior: this._moveToBottomBehavior, top: height + this._moveBottDiffOffset }));
     }
 
     private _mergeSetttings(settings: Settings) {
@@ -121,7 +122,7 @@ export class NgxPositionerDirective implements OnInit, OnDestroy {
             if (!!scrollEl) {
                 this._scrollableElement = scrollEl;
             } else {
-                console.error(`%c Couldn't find ${ this._settings.scrollableElement } in DOM! `, 'color: #fff');
+                console.error(`%c Couldn't find ${this._settings.scrollableElement} in DOM! `, 'color: #fff');
             }
         }
     }
@@ -134,7 +135,7 @@ export class NgxPositionerDirective implements OnInit, OnDestroy {
         return of(this._moveToBottomOffset).pipe(
             tap(height => this._scrollableElement.scroll({ behavior: this._moveToBottomBehavior, top: height })),
             delay(this._settings.smoothScroll.moveToBottom ? 600 : 0)
-        )
+        );
     }
 
     private get _moveToTopBehavior(): ScrollBehavior {
@@ -176,7 +177,8 @@ export class NgxPositionerDirective implements OnInit, OnDestroy {
     private get _moveBottDiffOffset() {
         let diff = this._scrollableElement.scrollTop - this._scrollableElement.offsetHeight;
         if (!!this._settings.offset.moveToBottom) {
-            diff = (this._scrollableElement.scrollHeight - (this._scrollableElement.scrollTop + this._scrollableElement.offsetHeight)) - this._settings.offset.moveToBottom;
+            diff = (this._scrollableElement.scrollHeight -
+                (this._scrollableElement.scrollTop + this._scrollableElement.offsetHeight)) - this._settings.offset.moveToBottom;
         }
         return diff;
     }
