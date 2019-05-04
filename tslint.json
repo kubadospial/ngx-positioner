@@ -6,6 +6,11 @@
   "rules": {
     "array-type": false,
     "arrow-parens": false,
+    "component-selector": [
+      true,
+      "element",
+      ".",
+    ],
     "deprecation": {
       "severity": "warn"
     },
