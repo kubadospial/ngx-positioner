@@ -8,9 +8,7 @@ Additionaly You can move to bottom/top element using smooth scroll or instant sc
 ## Note
 ```
 Directive requires Rxjs version >= 6.0.0.
-Current version doesn't support IE and Edge (detecting position and moving scroll).
-Directive uses JS scrolling method scrollTo() (https://caniuse.com/#search=scrollTo),
-so smooth scroll is not supported on Safari.
+UPDATE: Full browser compatibility.
 ```
 
 ## Demo
@@ -95,7 +93,7 @@ And
 </div>
 ```
 
-## Settings Object
+## Settings Model
 ```js
 offset: {
     isScrolledToBottom: number // default 0,
@@ -161,14 +159,14 @@ export class SomeComponent {
   ...
   constructor(private positionService: NgxPositionerServce) { }
 
-  changingMethod(settings: Settings) {
+  someMethod(settings: Settings) {
     this.positionService.changeSettings$.next(settings);
   }
 }
 
 ```
 
-or reasign initialSettings
+or overwrite initialSettings
 
 ## Contributing
 
