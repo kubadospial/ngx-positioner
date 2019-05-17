@@ -25,6 +25,13 @@ export class NgxPositionerDirective implements OnInit, OnDestroy {
     private _scrollingEvent = new Subject<void>();
     private _settings: Settings;
 
+    private get _scrollTop(): number {
+        return Math.round(this._scrollableElement.scrollTop);
+    }
+    private set _scrollTop(height: number) {
+        this._scrollableElement.scrollTop = Math.round(height);
+    }
+
     constructor(
         private el: ElementRef,
         @Inject(DOCUMENT) private document,
@@ -137,7 +144,7 @@ export class NgxPositionerDirective implements OnInit, OnDestroy {
     }
 
     private _scroll(behavior: string, height: number) {
-        let i = this._scrollableElement.scrollTop;
+        let i = this._scrollTop;
         if (height !== i) {
             if (behavior === ScrollBehavior.SMOOTH) {
                 const loop = setInterval(() => {
@@ -154,10 +161,10 @@ export class NgxPositionerDirective implements OnInit, OnDestroy {
                             clearInterval(loop);
                         }
                     }
-                    this._scrollableElement.scrollTop = i;
+                    this._scrollTop = i;
                 }, 0);
             } else {
-                this._scrollableElement.scrollTop = height;
+                this._scrollTop = height;
             }
         }
     }
@@ -171,11 +178,11 @@ export class NgxPositionerDirective implements OnInit, OnDestroy {
     }
 
     private get _isScrolledToTopCondition(): boolean {
-        return this._scrollableElement.scrollTop <= this._isScrolledToTopOffset;
+        return this._scrollTop <= this._isScrolledToTopOffset;
     }
 
     private get _isScrolledToBottomCondition(): boolean {
-        return this._scrollableElement.scrollTop + this._scrollableElement.clientHeight >= this._isScrolledToBottomOffset;
+        return this._scrollTop + this._scrollableElement.clientHeight >= this._isScrolledToBottomOffset;
     }
 
     private get _isScrolledToTopOffset() {

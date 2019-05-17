@@ -4072,9 +4072,10 @@ ng-packagr@^4.2.0:
     uglify-js "^3.0.7"
     update-notifier "^2.3.0"
 
-ngx-positioner@^1.0.4:
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/ngx-positioner/-/ngx-positioner-1.0.4.tgz#df0955d4587d248681f3ab57737a77770a7ac5f3"
+ngx-positioner@^1.0.6:
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/ngx-positioner/-/ngx-positioner-1.0.6.tgz#b5e58cf0aab58cfa22c77eff3a6f35354ad35269"
+  integrity sha512-vbY+2eQew1OM2XKiWA8ft/g17iAJhGwjnLC6ymE6eWQp3W4GgUEXYMCKF5P3CMn3OXWCT3MCPM+Zm4CK7ZjPXA==
   dependencies:
     tslib "^1.9.0"
 
