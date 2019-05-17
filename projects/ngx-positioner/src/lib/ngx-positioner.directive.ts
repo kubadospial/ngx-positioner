@@ -5,6 +5,7 @@ import { takeUntil, debounceTime, delay, switchMap, tap } from 'rxjs/operators';
 
 import { Settings } from './models';
 import { NgxPositionerService } from './ngx-positioner.service';
+import { ScrollBehavior } from './models/scroll-behavior.enum';
 
 
 @Directive({ selector: '[ngxPositioner]' })
@@ -57,7 +58,7 @@ export class NgxPositionerDirective implements OnInit, OnDestroy {
             takeUntil(this._stopAllSubscriptions$),
         ).subscribe(_ => this._scrollingEvent.next());
 
-        // TOP
+        // IS SCROLLED TOP
         this._scrollingEvent.pipe(
             debounceTime(this._settings.debounceTime.isScrolledToTop),
             delay(this._settings.delay.isScrolledToTop),
@@ -65,7 +66,7 @@ export class NgxPositionerDirective implements OnInit, OnDestroy {
             takeUntil(this._stopAllSubscriptions$),
         ).subscribe((isScrolledToTop: boolean) => this.isScrolledToTop.next(isScrolledToTop));
 
-        // BOTTOM
+        // IS SCROLLED BOTTOM
         this._scrollingEvent.pipe(
             debounceTime(this._settings.debounceTime.isScrolledToBottom),
             delay(this._settings.delay.isScrolledToBottom),
@@ -73,19 +74,19 @@ export class NgxPositionerDirective implements OnInit, OnDestroy {
             takeUntil(this._stopAllSubscriptions$),
         ).subscribe((isScrolledToBottom: boolean) => this.isScrolledToBottom.next(isScrolledToBottom));
 
+        // MOVE TO TOP
         this.moveToTop$.pipe(
             debounceTime(this._settings.debounceTime.moveToTop),
             delay(this._settings.delay.moveToTop),
             takeUntil(this._stopAllSubscriptions$)
         ).subscribe(_ => this._onMoveToTop());
 
+        // MOVE TO BOTTOM
         this.moveToBottom$.pipe(
             debounceTime(this._settings.debounceTime.moveToBottom),
             delay(this._settings.delay.moveToBottom),
             takeUntil(this._stopAllSubscriptions$),
-            switchMap(_ => this._onMoveToBottom())
-        ).subscribe(height =>
-            this._scrollableElement.scroll({ behavior: this._moveToBottomBehavior, top: height + this._moveBottDiffOffset }));
+        ).subscribe(_ => this._onMoveToBottom());
     }
 
     private _mergeSetttings(settings: Settings) {
@@ -122,28 +123,51 @@ export class NgxPositionerDirective implements OnInit, OnDestroy {
             if (!!scrollEl) {
                 this._scrollableElement = scrollEl;
             } else {
-                console.error(`%c Couldn't find ${this._settings.scrollableElement} in DOM! `, 'color: #fff');
+                console.error(`%c Couldn't find ${ this._settings.scrollableElement } in DOM! `, 'color: #fff');
             }
         }
     }
 
     private _onMoveToTop() {
-        this._scrollableElement.scroll({ behavior: this._moveToTopBehavior, top: this._moveToTopOffset });
+        this._scroll(this._moveToTopBehavior, this._moveToTopOffset);
     }
 
-    private _onMoveToBottom(): Observable<number> {
-        return of(this._moveToBottomOffset).pipe(
-            tap(height => this._scrollableElement.scroll({ behavior: this._moveToBottomBehavior, top: height })),
-            delay(this._settings.smoothScroll.moveToBottom ? 600 : 0)
-        );
+    private _onMoveToBottom() {
+        this._scroll(this._moveToBottomBehavior, this._moveToBottomOffset);
+    }
+
+    private _scroll(behavior: string, height: number) {
+        let i = this._scrollableElement.scrollTop;
+        if (height !== i) {
+            if (behavior === ScrollBehavior.SMOOTH) {
+                const loop = setInterval(() => {
+                    if (height < i) {
+                        const modulo = (height + i) % 10;
+                        i -= modulo ? modulo : 10;
+                        if (i <= height) {
+                            clearInterval(loop);
+                        }
+                    } else {
+                        const modulo = (height - i) % 10;
+                        i += modulo ? modulo : 10;
+                        if (i >= height) {
+                            clearInterval(loop);
+                        }
+                    }
+                    this._scrollableElement.scrollTop = i;
+                }, 0);
+            } else {
+                this._scrollableElement.scrollTop = height;
+            }
+        }
     }
 
     private get _moveToTopBehavior(): ScrollBehavior {
-        return this._settings.smoothScroll.moveToTop ? 'smooth' : 'auto';
+        return this._settings.smoothScroll.moveToTop ? ScrollBehavior.SMOOTH : ScrollBehavior.AUTO;
     }
 
     private get _moveToBottomBehavior(): ScrollBehavior {
-        return this._settings.smoothScroll.moveToBottom ? 'smooth' : 'auto';
+        return this._settings.smoothScroll.moveToBottom ? ScrollBehavior.SMOOTH : ScrollBehavior.AUTO;
     }
 
     private get _isScrolledToTopCondition(): boolean {
@@ -167,19 +191,7 @@ export class NgxPositionerDirective implements OnInit, OnDestroy {
     }
 
     private get _moveToBottomOffset(): number {
-        if (!this._settings.offset.moveToBottom) {
-            return this._scrollableElement.scrollHeight;
-        } else {
-            return this._scrollableElement.offsetHeight - this._settings.offset.moveToBottom;
-        }
+        return this._scrollableElement.scrollHeight - this._scrollableElement.offsetHeight - this._settings.offset.moveToBottom;
     }
 
-    private get _moveBottDiffOffset() {
-        let diff = this._scrollableElement.scrollTop - this._scrollableElement.offsetHeight;
-        if (!!this._settings.offset.moveToBottom) {
-            diff = (this._scrollableElement.scrollHeight -
-                (this._scrollableElement.scrollTop + this._scrollableElement.offsetHeight)) - this._settings.offset.moveToBottom;
-        }
-        return diff;
-    }
 }
