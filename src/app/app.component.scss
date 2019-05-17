@@ -4,6 +4,7 @@
   top: 0;
   left: 0;
   width: 100%;
+  background-color: #fff;
   background-color: #ffffffeb;
   @media (min-width: 1024px) {
     display: flex;
@@ -42,5 +43,6 @@
 
 .parent {
   max-height: 100vh;
-  overflow: hidden scroll;
+  overflow-x: hidden;
+  overflow-y: scroll;
 }
