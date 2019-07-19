@@ -1,6 +1,7 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { debounceTime } from 'rxjs/operators';
+import { debounceTime, takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 import { Settings, NgxPositionerService } from 'ngx-positioner';
 
 @Component({
@@ -9,17 +10,18 @@ import { Settings, NgxPositionerService } from 'ngx-positioner';
     templateUrl: 'settings.component.html'
 })
 
-export class SettingsComponent implements OnInit {
+export class SettingsComponent implements OnDestroy {
 
     @Output() settingChanges = new EventEmitter<Settings>();
 
     settings: Settings;
 
     settingsForm = new FormGroup({
-
         smoothScroll: new FormGroup({
             moveToTop: new FormControl(),
             moveToBottom: new FormControl(),
+            moveToTopSpeed: new FormControl(),
+            moveToBottomSpeed: new FormControl()
         }),
         offset: new FormGroup({
             isScrolledToTop: new FormControl(),
@@ -41,16 +43,18 @@ export class SettingsComponent implements OnInit {
         })
     });
 
+    private _destroy$ = new Subject();
+
     constructor(private positionerService: NgxPositionerService) {
-        this.settingsForm.patchValue(this.positionerService.initialSettings);
+        this.settingsForm.patchValue(this.positionerService.settings);
         this.settingsForm.valueChanges.pipe(
+            takeUntil(this._destroy$),
             debounceTime(300)
-        ).subscribe((settings: Settings) => {
-            const sets = { ...settings, childElement: '.child' };
-            this.positionerService.initialSettings = sets;
-            this.positionerService.changeSettings$.next(sets);
-        });
+        ).subscribe((settings: Settings) => this.positionerService.changeSettings$.next({ ...settings }));
     }
 
-    ngOnInit() { }
+    ngOnDestroy() {
+        this._destroy$.next();
+        this._destroy$.complete();
+    }
 }

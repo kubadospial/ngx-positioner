@@ -10,16 +10,17 @@ import { Settings } from 'ngx-positioner';
 export class AppComponent {
   moveToTop$ = new Subject<void>();
   moveToBottom$ = new Subject<void>();
-
   isScrolledToTop: boolean;
   isScrolledToBottom: boolean;
-
   areVisibleSettings = false;
+  testArray = new Array(1000);
 
   positionerSettings: Settings = {
     smoothScroll: {
       moveToTop: true,
-      moveToBottom: true
+      moveToBottom: true,
+      moveToTopSpeed: 300,
+      moveToBottomSpeed: 100
     }
   };
 

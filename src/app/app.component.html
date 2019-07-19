@@ -1,19 +1,20 @@
-<div class="panel" [ngClass]="{'panel_settings-active': areVisibleSettings}">
-  <div class="panel__navigation">
-    <div class="panel__option">isScrolledToTop: {{isScrolledToTop}}</div>
-    <div class="panel__option">isScrolledToBottom: {{isScrolledToBottom}}</div>
-    <div class="panel__option panel__option_clickable"
-         (click)="moveToTop()">move to top</div>
-    <div class="panel__option panel__option_clickable"
-         (click)="moveToBottom()">move to bottom</div>
-    <div class="panel__settings-toggler"
-         (click)="areVisibleSettings = !areVisibleSettings">
-      <span *ngIf="!areVisibleSettings; else visibleSetts">show settings</span>
-      <ng-template #visibleSetts>hide settings</ng-template>
+<div class="panel"
+     [ngClass]="{'panel_settings-active': areVisibleSettings}">
+    <div class="panel__navigation">
+        <div class="panel__option">isScrolledToTop: {{isScrolledToTop}}</div>
+        <div class="panel__option">isScrolledToBottom: {{isScrolledToBottom}}</div>
+        <div class="panel__option panel__option_clickable"
+             (click)="moveToTop()">move to top</div>
+        <div class="panel__option panel__option_clickable"
+             (click)="moveToBottom()">move to bottom</div>
+        <div class="panel__settings-toggler"
+             (click)="areVisibleSettings = !areVisibleSettings">
+            <span *ngIf="!areVisibleSettings; else visibleSetts">show settings</span>
+            <ng-template #visibleSetts>hide settings</ng-template>
+        </div>
     </div>
-  </div>
-  <div class="settings"
-       *ngIf="areVisibleSettings"></div>
+    <div class="settings"
+         *ngIf="areVisibleSettings"></div>
 </div>
 <div class="parent"
      ngxPositioner
@@ -22,110 +23,7 @@
      [settings]="positionerSettings"
      [moveToTop$]="moveToTop$"
      [moveToBottom$]="moveToBottom$">
-  <div class="child">
-    <div>lot of content</div>
-    <div>lot of content</div>
-    <div>lot of content</div>
-    <div>lot of content</div>
-    <div>lot of content</div>
-    <div>lot of content</div>
-    <div>lot of content</div>
-    <div>lot of content</div>
-    <div>lot of content</div>
-    <div>lot of content</div>
-    <div>lot of content</div>
-    <div>lot of content</div>
-    <div>lot of content</div>
-    <div>lot of content</div>
-    <div>lot of content</div>
-    <div>lot of content</div>
-    <div>lot of content</div>
-    <div>lot of content</div>
-    <div>lot of content</div>
-    <div>lot of content</div>
-    <div>lot of content</div>
-    <div>lot of content</div>
-    <div>lot of content</div>
-    <div>lot of content</div>
-    <div>lot of content</div>
-    <div>lot of content</div>
-    <div>lot of content</div>
-    <div>lot of content</div>
-    <div>lot of content</div>
-    <div>lot of content</div>
-    <div>lot of content</div>
-    <div>lot of content</div>
-    <div>lot of content</div>
-    <div>lot of content</div>
-    <div>lot of content</div>
-    <div>lot of content</div>
-    <div>lot of content</div>
-    <div>lot of content</div>
-    <div>lot of content</div>
-    <div>lot of content</div>
-    <div>lot of content</div>
-    <div>lot of content</div>
-    <div>lot of content</div>
-    <div>lot of content</div>
-    <div>lot of content</div>
-    <div>lot of content</div>
-    <div>lot of content</div>
-    <div>lot of content</div>
-    <div>lot of content</div>
-    <div>lot of content</div>
-    <div>lot of content</div>
-    <div>lot of content</div>
-    <div>lot of content</div>
-    <div>lot of content</div>
-    <div>lot of content</div>
-    <div>lot of content</div>
-    <div>lot of content</div>
-    <div>lot of content</div>
-    <div>lot of content</div>
-    <div>lot of content</div>
-    <div>lot of content</div>
-    <div>lot of content</div>
-    <div>lot of content</div>
-    <div>lot of content</div>
-    <div>lot of content</div>
-    <div>lot of content</div>
-    <div>lot of content</div>
-    <div>lot of content</div>
-    <div>lot of content</div>
-    <div>lot of content</div>
-    <div>lot of content</div>
-    <div>lot of content</div>
-    <div>lot of content</div>
-    <div>lot of content</div>
-    <div>lot of content</div>
-    <div>lot of content</div>
-    <div>lot of content</div>
-    <div>lot of content</div>
-    <div>lot of content</div>
-    <div>lot of content</div>
-    <div>lot of content</div>
-    <div>lot of content</div>
-    <div>lot of content</div>
-    <div>lot of content</div>
-    <div>lot of content</div>
-    <div>lot of content</div>
-    <div>lot of content</div>
-    <div>lot of content</div>
-    <div>lot of content</div>
-    <div>lot of content</div>
-    <div>lot of content</div>
-    <div>lot of content</div>
-    <div>lot of content</div>
-    <div>lot of content</div>
-    <div>lot of content</div>
-    <div>lot of content</div>
-    <div>lot of content</div>
-    <div>lot of content</div>
-    <div>lot of content</div>
-    <div>lot of content</div>
-    <div>lot of content</div>
-    <div>lot of content</div>
-    <div>lot of content</div>
-    <div>lot of content</div>
-  </div>
+    <div class="child">
+        <div *ngFor="let unit of testArray"> lots of content </div>
+    </div>
 </div>
