@@ -7,8 +7,16 @@ Additionaly You can move to bottom/top element using smooth scroll or instant sc
 
 ## Note
 ```
+Update: 
+You can control speed of moveToTop / moveToBottom by declaring number for both separately:
+settings.smoothScroll.moveToTopSpeed = number / settings.smoothScroll.moveToBottomSpeed = number
+
+Service variable "initialSettings" is deprecated and in future it will remain but it won't be accesable. 
+Instead use "settings" variable.
+
+---------------------------------------------------------------------------------------------------
 Directive requires Rxjs version >= 6.0.0.
-UPDATE: Full browser compatibility.
+Full browser compatibility.
 ```
 
 ## Demo
@@ -96,26 +104,28 @@ And
 ## Settings Model
 ```js
 offset: {
-    isScrolledToBottom: number // default 0,
-    isScrolledToTop: number // default 0,
-    moveToBottom: number // default 0,
+    isScrolledToBottom: number // default 0
+    isScrolledToTop: number // default 0
+    moveToBottom: number // default 0
     moveToTop: number // default 0
 },
 delay: {
-    isScrolledToBottom: number // default 0,
-    isScrolledToTop: number // default 0,
-    moveToBottom: number // default 0,
+    isScrolledToBottom: number // default 0
+    isScrolledToTop: number // default 0
+    moveToBottom: number // default 0
     moveToTop: number // default 0
 },
 debounceTime: {
-    isScrolledToBottom: number // default 0,
-    isScrolledToTop: number // default 0,
-    moveToBottom: number // default 0,
+    isScrolledToBottom: number // default 0
+    isScrolledToTop: number // default 0
+    moveToBottom: number // default 0
     moveToTop: number // default 0
 },
 smoothScroll: {
     moveToBottom: boolean, // default true
     moveToTop: boolean // default true
+    moveToBottomSpeed: number // default 10
+    moveToTopSpeed: number // default 10
 },
 scrollableElement: string // querySelector*
 
@@ -145,7 +155,8 @@ isScrolledToBottom: EventEmitter that emits boolean is scrollable element is at 
 ## Service
 ```
 changeSettings$: Subject<Settings>;
-initialSettings: Settings;
+settings: Settings;
+initialSettings: Settings; // this variable is deprecated
 ```
 
 You can dynamically change directive's settings by emitting new object:
@@ -165,8 +176,6 @@ export class SomeComponent {
 }
 
 ```
-
-or overwrite initialSettings
 
 ## Contributing
 
