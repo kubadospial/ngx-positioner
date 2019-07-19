@@ -1,10 +1,10 @@
 import { PositionEvents } from './position-events.model';
-import { MoveEvents } from './move-events.model';
+import { SmootScroll } from './smooth-scroll.model';
 
 export interface Settings {
     offset?: PositionEvents;
     delay?: PositionEvents;
     debounceTime?: PositionEvents;
-    smoothScroll?: MoveEvents<boolean>;
+    smoothScroll?: SmootScroll<boolean>;
     scrollableElement?: string;
 }

@@ -1,7 +1,7 @@
-import { Directive, ElementRef, OnInit, Input, Output, EventEmitter, OnDestroy, Inject } from '@angular/core';
+import { Directive, ElementRef, OnInit, Input, Output, EventEmitter, OnDestroy, Inject, AfterContentInit } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
-import { fromEvent, Subject, of, Observable } from 'rxjs';
-import { takeUntil, debounceTime, delay, switchMap, tap } from 'rxjs/operators';
+import { fromEvent, Subject, of } from 'rxjs';
+import { takeUntil, debounceTime, delay, switchMap } from 'rxjs/operators';
 
 import { Settings } from './models';
 import { NgxPositionerService } from './ngx-positioner.service';
@@ -9,7 +9,7 @@ import { ScrollBehavior } from './models/scroll-behavior.enum';
 
 
 @Directive({ selector: '[ngxPositioner]' })
-export class NgxPositionerDirective implements OnInit, OnDestroy {
+export class NgxPositionerDirective implements OnInit, AfterContentInit, OnDestroy {
     @Input('settings')
     set settings(settings: Settings) {
         this._mergeSetttings(settings);
@@ -23,7 +23,7 @@ export class NgxPositionerDirective implements OnInit, OnDestroy {
     private _destroy$ = new Subject<void>();
     private _stopAllSubscriptions$ = new Subject<void>();
     private _scrollingEvent = new Subject<void>();
-    private _settings: Settings;
+    private _settings: Settings = {};
 
     private get _scrollTop(): number {
         return Math.round(this._scrollableElement.scrollTop);
@@ -39,11 +39,7 @@ export class NgxPositionerDirective implements OnInit, OnDestroy {
     ) { }
 
     ngOnInit() {
-        this.isScrolledToTop.next(this._isScrolledToTopCondition);
-        this.isScrolledToBottom.next(this._isScrolledToBottomCondition);
-
         this._initializeSubscriptions();
-
         this.positionerService.changeSettings$.pipe(
             takeUntil(this._destroy$)
         ).subscribe((settings: Settings) => {
@@ -51,6 +47,11 @@ export class NgxPositionerDirective implements OnInit, OnDestroy {
             this._mergeSetttings(settings);
             this._initializeSubscriptions();
         });
+    }
+
+    ngAfterContentInit() {
+        this.isScrolledToTop.next(this._isScrolledToTopCondition);
+        this.isScrolledToBottom.next(this._isScrolledToBottomCondition);
     }
 
     ngOnDestroy() {
@@ -101,22 +102,23 @@ export class NgxPositionerDirective implements OnInit, OnDestroy {
             this._settings = {
                 ...settings,
                 offset: {
-                    ...this.positionerService.initialSettings.offset,
+                    ...this.positionerService.settings.offset,
                     ...settings.offset
                 },
                 delay: {
-                    ...this.positionerService.initialSettings.delay,
+                    ...this.positionerService.settings.delay,
                     ...settings.delay
                 },
                 debounceTime: {
-                    ...this.positionerService.initialSettings.debounceTime,
+                    ...this.positionerService.settings.debounceTime,
                     ...settings.debounceTime,
                 },
                 smoothScroll: {
-                    ...this.positionerService.initialSettings.smoothScroll,
+                    ...this.positionerService.settings.smoothScroll,
                     ...settings.smoothScroll,
                 }
             };
+            this.positionerService.settings = this._settings;
             this._setScrollableElement();
         } else {
             console.error(`%c Invalid settings object! `, 'color: #fff');
@@ -130,7 +132,7 @@ export class NgxPositionerDirective implements OnInit, OnDestroy {
             if (!!scrollEl) {
                 this._scrollableElement = scrollEl;
             } else {
-                console.error(`%c Couldn't find ${ this._settings.scrollableElement } in DOM! `, 'color: #fff');
+                console.error(`%c Couldn't find ${this._settings.scrollableElement} in DOM! `, 'color: #fff');
             }
         }
     }
@@ -150,13 +152,13 @@ export class NgxPositionerDirective implements OnInit, OnDestroy {
                 const loop = setInterval(() => {
                     if (height < i) {
                         const modulo = (height + i) % 10;
-                        i -= modulo ? modulo : 10;
+                        i -= modulo ? modulo : this._moveToTopSpeed;
                         if (i <= height) {
                             clearInterval(loop);
                         }
                     } else {
                         const modulo = (height - i) % 10;
-                        i += modulo ? modulo : 10;
+                        i += modulo ? modulo : this._moveToBottomSpeed;
                         if (i >= height) {
                             clearInterval(loop);
                         }
@@ -167,6 +169,14 @@ export class NgxPositionerDirective implements OnInit, OnDestroy {
                 this._scrollTop = height;
             }
         }
+    }
+
+    private get _moveToTopSpeed(): number {
+        return this._settings.smoothScroll.moveToTopSpeed;
+    }
+
+    private get _moveToBottomSpeed(): number {
+        return this._settings.smoothScroll.moveToBottomSpeed;
     }
 
     private get _moveToTopBehavior(): ScrollBehavior {
