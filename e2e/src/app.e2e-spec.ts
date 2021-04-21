@@ -10,7 +10,7 @@ describe('workspace-project App', () => {
 
   it('should display welcome message', () => {
     page.navigateTo();
-    expect(page.getTitleText()).toEqual('Welcome to positioner!');
+    expect(page.getTitleText()).toEqual('new-ngx-positioner app is running!');
   });
 
   afterEach(async () => {

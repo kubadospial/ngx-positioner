@@ -1,17 +1,19 @@
 # ngx-positioner
+
 If You want to use smooth scroll top/bottom on DOM element or check if element is at the bottom of scrollable element?
 Keep on reading!
 
-ngx-positioner is an Angular 6+ directive which allows to determin position of scrollable DOM element. So basicly the directive tells if scrollable element is scrolled top/bottom. 
+ngx-positioner is an Angular 6+ directive which allows to determin position of scrollable DOM element. So basicly the directive tells if scrollable element is scrolled top/bottom.
 Additionaly You can move to bottom/top element using smooth scroll or instant scroll.
 
 ## Note
+
 ```
-Update: 
+Update:
 You can control speed of moveToTop / moveToBottom by declaring number for both separately:
 settings.smoothScroll.moveToTopSpeed = number / settings.smoothScroll.moveToBottomSpeed = number
 
-Service variable "initialSettings" is deprecated and in future it will remain but it won't be accesable. 
+Service variable "initialSettings" is deprecated and in future it will remain but it won't be accesable.
 Instead use "settings" variable.
 
 ---------------------------------------------------------------------------------------------------
@@ -20,13 +22,15 @@ Full browser compatibility.
 ```
 
 ## Demo
+
 Check the [link](https://kubadospial.github.io/ngx-positioner/)
 
 ## Usage
 
 Install ngx-positioner
-- npm: ``` $ npm install ngx-positioner ``` 
-- yarn: ``` $ yarn add ngx-positioner ``` 
+
+- npm: `$ npm install ngx-positioner`
+- yarn: `$ yarn add ngx-positioner`
 
 import NgxPositionerModule
 
@@ -44,6 +48,7 @@ import { NgxPositionerModule } from 'ngx-positioner';
 ```
 
 Use NgxPositionerDirective
+
 ```js
 import { Settings } from 'ngx-positioner';
 
@@ -76,32 +81,31 @@ export class SomeComponent {
 }
 
 ```
+
 And
+
 ```html
 <div class="panel">
   ...
-  <div (click)="moveToTop()">
-    move to top
-  </div>
-  <div (click)="moveToBottom()">
-    move to bottom
-  </div>
+  <div (click)="moveToTop()">move to top</div>
+  <div (click)="moveToBottom()">move to bottom</div>
 </div>
 
-<div class="parent"
-     ngxPositioner
-     (isScrolledToTop)="onScrolledToTop($event)"
-     (isScrolledToBottom)="onScrolledToBottom($event)"
-     [settings]="positionerSettings"
-     [moveToTop$]="moveToTop$"
-     [moveToBottom$]="moveToBottom$">
-  <div class="child">
-    // long content
-  </div>
+<div
+  class="parent"
+  ngxPositioner
+  (isScrolledToTop)="onScrolledToTop($event)"
+  (isScrolledToBottom)="onScrolledToBottom($event)"
+  [settings]="positionerSettings"
+  [moveToTop$]="moveToTop$"
+  [moveToBottom$]="moveToBottom$"
+>
+  <div class="child">// long content</div>
 </div>
 ```
 
 ## Settings Model
+
 ```js
 offset: {
     isScrolledToBottom: number // default 0
@@ -130,13 +134,16 @@ smoothScroll: {
 scrollableElement: string // querySelector*
 
 ```
-**if not declared, host of directive will be assigned by default*
+
+\*_if not declared, host of directive will be assigned by default_
 
 ## Directive
+
 ### Inputs:
-* settings: Settings;
-* moveToTop$: Subject;
-* moveToBottom$: Subject;
+
+- settings: Settings;
+- moveToTop$: Subject;
+- moveToBottom$: Subject;
 
 ```
 setting: passes settings object;
@@ -145,14 +152,17 @@ moveToBottom$: scroll to the bottom of scrollable element;
 ```
 
 ### Outputs:
-* isScrolledToTop: boolean;
-* isScrolledToBottom: boolean;
+
+- isScrolledToTop: boolean;
+- isScrolledToBottom: boolean;
+
 ```
 isScrolledToTop: EventEmitter that emits boolean is scrollable element is at top;
 isScrolledToBottom: EventEmitter that emits boolean is scrollable element is at bottom;
 ```
 
 ## Service
+
 ```
 changeSettings$: Subject<Settings>;
 settings: Settings;
@@ -185,7 +195,7 @@ export class SomeComponent {
 4. Add your tests.
 5. `npm run test / yarn start test`.
 6. `npm run build / yarn start build`.
-7. After all tests are passing. 
+7. After all tests are passing.
 8. Commit, push, PR.
 
 ## License

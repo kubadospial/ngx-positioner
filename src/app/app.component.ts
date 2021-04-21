@@ -5,7 +5,7 @@ import { Settings } from 'ngx-positioner';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
   moveToTop$ = new Subject<void>();
@@ -20,11 +20,11 @@ export class AppComponent {
       moveToTop: true,
       moveToBottom: true,
       moveToTopSpeed: 300,
-      moveToBottomSpeed: 100
-    }
+      moveToBottomSpeed: 100,
+    },
   };
 
-  constructor() { }
+  constructor() {}
 
   onScrolledToTop(isTop: boolean) {
     this.isScrolledToTop = isTop;

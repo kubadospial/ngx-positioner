@@ -1,7 +1,3 @@
-/*
- * Public API Surface of ngx-positioner
- */
-
 export * from './lib/models';
 export * from './lib/ngx-positioner.service';
 export * from './lib/ngx-positioner.directive';

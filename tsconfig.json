@@ -5,25 +5,18 @@
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
     "declaration": false,
-    "module": "es2015",
-    "moduleResolution": "node",
-    "emitDecoratorMetadata": true,
+    "downlevelIteration": true,
     "experimentalDecorators": true,
+    "moduleResolution": "node",
     "importHelpers": true,
-    "target": "es5",
-    "typeRoots": [
-      "node_modules/@types"
-    ],
-    "lib": [
-      "es2018",
-      "dom"
-    ],
+    "target": "es2015",
+    "module": "es2020",
+    "lib": ["es2018", "dom"],
     "paths": {
       "ngx-positioner": [
-        "dist/ngx-positioner"
-      ],
-      "ngx-positioner/*": [
-        "dist/ngx-positioner/*"
+        "dist/ngx-positioner/ngx-positioner",
+        "dist/ngx-positioner",
+        "projects/ngx-positioner/src/public-api"
       ]
     }
   }
