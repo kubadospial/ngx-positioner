@@ -1,7 +1,38 @@
 version: 2.1
-orbs:
-  node: circleci/node@3.0.0
+
+jobs:
+  unit_tests:
+    working_directory: ~/projects/ngx-positioner
+    docker:
+      - image: circleci/node:10-browsers
+    steps:
+      - checkout
+      - run:
+          name: Show current branch
+          command: echo ${CIRCLE_BRANCH}
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "package-lock.json" }}
+            - v1-dependencies-
+      - run:
+          name: Install local dependencies
+          command: npm install
+      - save_cache:
+          key: v1-dependencies-{{ checksum "package-lock.json" }}
+          paths:
+            - node_modules
+      - run:
+          name: Testing
+          command: npm run test:ci
+
 workflows:
-  node-tests:
+  version: 2.1
+  ngx-positioner:
     jobs:
-      - node/test
+      - unit_tests:
+          filters:
+            branches:
+              only:
+                - develop
+                - staging
+                - master
