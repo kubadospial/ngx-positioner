@@ -33,6 +33,7 @@ jobs:
           command: npm run test:ci
 
  workflows:
+        version: 2
         test_workflow:
             jobs:
                 - deploy:
