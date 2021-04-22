@@ -26,6 +26,10 @@ export class AppComponent {
 
   constructor() {}
 
+  settingChanged(settings) {
+    this.positionerSettings = settings;
+  }
+
   onScrolledToTop(isTop: boolean) {
     this.isScrolledToTop = isTop;
   }
