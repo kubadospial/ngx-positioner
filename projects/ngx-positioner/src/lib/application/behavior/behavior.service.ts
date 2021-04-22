@@ -22,7 +22,7 @@ export class BehaviorService {
     return new Promise((resolve) => {
       let i = this.scrollTop;
       if (height !== i) {
-        if (behavior === ScrollBehavior.SMOOTH) {
+        if (behavior === ScrollBehavior.smooth) {
           const loop = setInterval(() => {
             if (height < i) {
               const modulo = (height + i) % 10;

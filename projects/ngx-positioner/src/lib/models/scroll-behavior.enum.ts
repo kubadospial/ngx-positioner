@@ -1,4 +1,5 @@
-export enum ScrollBehavior {
-    SMOOTH = 'smooth',
-    AUTO = 'auto'
+/* eslint-disable no-shadow */
+export const enum ScrollBehavior {
+  smooth = 'smooth',
+  auto = 'auto',
 }

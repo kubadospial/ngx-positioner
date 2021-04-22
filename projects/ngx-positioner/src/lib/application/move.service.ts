@@ -29,6 +29,10 @@ export class MoveService implements OnDestroy {
     private _calculationsService: CalculationsService
   ) {}
 
+  ngOnDestroy() {
+    this._destroy$.next();
+  }
+
   initializeSubscriptions(
     moveToTop$: Observable<any>,
     moveToBottom$: Observable<any>
@@ -104,13 +108,9 @@ export class MoveService implements OnDestroy {
 
   private _onMove(moveBehavior: ScrollBehavior, offset: number, speed: number) {
     this._behaviorService.scroll(moveBehavior, offset, speed).then(() => {
-      if (moveBehavior === ScrollBehavior.SMOOTH) {
+      if (moveBehavior === ScrollBehavior.smooth) {
         this._moveEnded$.next();
       }
     });
-  }
-
-  ngOnDestroy() {
-    this._destroy$.next();
   }
 }

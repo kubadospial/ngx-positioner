@@ -8,7 +8,7 @@
     "build": "ng build",
     "test": "ng test ngx-positioner",
     "test:ci": "npm run test -- --no-watch --no-progress --browsers=ChromeHeadlessCI",
-    "lint": "ng lint",
+    "lint": "ng lint ngx-positioner",
     "e2e": "ng e2e",
     "build:project": "ng build ngx-positioner --prod",
     "build:github-page": "ng build --prod && gh-pages -d dist/positioner",

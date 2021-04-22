@@ -1,13 +1,10 @@
 {
   "extends": "../../.eslintrc.json",
-  "ignorePatterns": [
-    "!**/*"
-  ],
+  "ignorePatterns": ["!**/*"],
+
   "overrides": [
     {
-      "files": [
-        "*.ts"
-      ],
+      "files": ["*.ts"],
       "parserOptions": {
         "project": [
           "projects/ngx-positioner/tsconfig.lib.json",
@@ -28,16 +25,30 @@
           "error",
           {
             "type": "attribute",
-            "prefix": "lib",
+            "prefix": "ngx",
             "style": "camelCase"
+          }
+        ],
+        "@typescript-eslint/member-ordering": [
+          "error",
+          {
+            "default": [
+              "private-instance-field",
+              "public-instance-field",
+              "private-static-field",
+              "public-static-field",
+              "public-constructor",
+              "private-static-method",
+              "public-static-method",
+              "public-instance-method",
+              "private-instance-method"
+            ]
           }
         ]
       }
     },
     {
-      "files": [
-        "*.html"
-      ],
+      "files": ["*.html"],
       "rules": {}
     }
   ]

@@ -47,14 +47,14 @@ export class CalculationsService {
 
   get moveToTopBehavior(): ScrollBehavior {
     return this._settings.smoothScroll.moveToTop
-      ? ScrollBehavior.SMOOTH
-      : ScrollBehavior.AUTO;
+      ? ScrollBehavior.smooth
+      : ScrollBehavior.auto;
   }
 
   get moveToBottomBehavior(): ScrollBehavior {
     return this._settings.smoothScroll.moveToBottom
-      ? ScrollBehavior.SMOOTH
-      : ScrollBehavior.AUTO;
+      ? ScrollBehavior.smooth
+      : ScrollBehavior.auto;
   }
 
   get moveToTopOffset(): number {

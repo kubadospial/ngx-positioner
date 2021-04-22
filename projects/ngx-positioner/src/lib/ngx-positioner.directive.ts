@@ -31,6 +31,11 @@ import {
   ],
 })
 export class NgxPositionerDirective implements AfterContentInit, OnDestroy {
+  private _isScrolledToBottom: boolean;
+  private _isScrolledToTop: boolean;
+
+  private _destroy$ = new Subject<void>();
+
   @Input() set settings(settings: Settings) {
     this._settingService.settings = settings;
   }
@@ -41,11 +46,6 @@ export class NgxPositionerDirective implements AfterContentInit, OnDestroy {
   @Input() moveToBottom$ = new Subject<void>();
   @Output() isScrolledToTop = new EventEmitter<boolean>();
   @Output() isScrolledToBottom = new EventEmitter<boolean>();
-
-  private _isScrolledToBottom: boolean;
-  private _isScrolledToTop: boolean;
-
-  private _destroy$ = new Subject<void>();
 
   constructor(
     private _settingService: SettingsService,
@@ -90,6 +90,10 @@ export class NgxPositionerDirective implements AfterContentInit, OnDestroy {
     this._isScrolledToBottomChanged(isScrolledToBottom);
   }
 
+  ngOnDestroy() {
+    this._destroy$.next();
+  }
+
   private _isScrolledToTopChanged(isScrolled: boolean) {
     this.isScrolledToTop.next(isScrolled);
     if (this._isScrolledToTop !== isScrolled) {
@@ -116,9 +120,5 @@ export class NgxPositionerDirective implements AfterContentInit, OnDestroy {
         console.error(`%c Couldn't find ${selector} in DOM! `, 'color: #fff');
       }
     }
-  }
-
-  ngOnDestroy() {
-    this._destroy$.next();
   }
 }

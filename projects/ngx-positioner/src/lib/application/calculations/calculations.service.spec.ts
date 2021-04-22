@@ -6,9 +6,8 @@ import {
 import { settingsServiceStub } from '../settings/settings.stub';
 import { CalculationsService } from './calculations.service';
 
-function compileService(behavior = behaviorServiceStub) {
-  return new CalculationsService(behavior as any, settingsServiceStub as any);
-}
+const compileService = (behavior = behaviorServiceStub) =>
+  new CalculationsService(behavior as any, settingsServiceStub as any);
 
 describe('CalculationsService', () => {
   let service: CalculationsService;
@@ -35,13 +34,12 @@ describe('CalculationsService', () => {
     } = service;
     expect(isScrolledToTopCondition).toBeTrue();
     expect(isScrolledToBottomCondition).toBeFalse();
-    expect(moveToTopBehavior).toEqual(ScrollBehavior.SMOOTH);
-    expect(moveToBottomBehavior).toEqual(ScrollBehavior.SMOOTH);
+    expect(moveToTopBehavior).toEqual(ScrollBehavior.smooth);
+    expect(moveToBottomBehavior).toEqual(ScrollBehavior.smooth);
     expect(moveToTopOffset).toEqual(0);
     expect(moveToBottomOffset).toEqual(15455);
     expect(moveToTopSpeed).toEqual(10);
     expect(moveToBottomSpeed).toEqual(10);
-    expect;
   });
 
   it('should change isScrolledToTopCondition to false when scrolled down to the page and isScrolledToBottomCondition to true', () => {
