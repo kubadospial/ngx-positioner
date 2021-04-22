@@ -23,7 +23,7 @@ jobs:
             - node_modules
       - run:
           name: Testing
-          command: npm test --no-progress --browsers=ChromeHeadlessCI
+          command: npm run test -- --no-watch --no-progress --browsers=ChromeHeadlessCI
 
 workflows:
   version: 2.1
