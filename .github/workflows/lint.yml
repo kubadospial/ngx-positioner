@@ -1,16 +1,26 @@
 name: Lint
 
-on: pull_request
+on: push
 
 jobs:
-  eslint:
+  run-linters:
+    name: Run linters
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v2
-      - uses: mrdivyansh/eslint-action@1.0.7
-        if: ${{ github.event_name == 'push' || github.event.pull_request.head.repo.full_name == github.repository }}
+      - name: Check out Git repository
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v1
         with:
-          repo-token: ${{secrets.GITHUB_TOKEN}}
-          eslint-rc: .eslintrc.json
-          execute-on-files:
-            - ./packages
+          node-version: 12
+
+      - name: Install Node.js dependencies
+        run: npm ci
+
+      - name: Run linters
+        uses: wearerequired/lint-action@v1
+        with:
+          eslint: true
+          prettier: true
