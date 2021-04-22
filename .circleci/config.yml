@@ -23,7 +23,7 @@ jobs:
             - node_modules
       - run:
           name: Testing
-          command: ng test ngx-positioner --no-watch --no-progress --browsers=ChromeHeadlessCI
+          command: npm test --no-progress --browsers=ChromeHeadlessCI
 
 workflows:
   version: 2.1
