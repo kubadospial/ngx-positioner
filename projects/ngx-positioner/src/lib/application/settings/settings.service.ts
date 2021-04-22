@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Settings } from '../models';
+import { Settings } from '../../models';
 
 export const INITIAL_SETTINGS: Settings = {
   offset: {

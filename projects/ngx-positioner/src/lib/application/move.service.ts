@@ -3,9 +3,9 @@ import { fromEvent, Observable, Subject } from 'rxjs';
 import { debounceTime, delay, map, takeUntil } from 'rxjs/operators';
 import { Settings } from '../models';
 import { ScrollBehavior } from '../models/scroll-behavior.enum';
-import { BehaviorService } from './behavior.service';
-import { CalculationsService } from './calculations.service';
-import { SettingsService } from './settings.service';
+import { BehaviorService } from './behavior/behavior.service';
+import { CalculationsService } from './calculations/calculations.service';
+import { SettingsService } from './settings/settings.service';
 
 @Injectable()
 export class MoveService implements OnDestroy {

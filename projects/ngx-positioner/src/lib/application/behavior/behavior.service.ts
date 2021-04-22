@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { ScrollBehavior } from '../models/scroll-behavior.enum';
+import { ScrollBehavior } from '../../models/scroll-behavior.enum';
 
 @Injectable()
 export class BehaviorService {

@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Settings } from '../models';
-import { ScrollBehavior } from '../models/scroll-behavior.enum';
-import { BehaviorService } from './behavior.service';
-import { SettingsService } from './settings.service';
+import { Settings } from '../../models';
+import { ScrollBehavior } from '../../models/scroll-behavior.enum';
+import { BehaviorService } from '../behavior/behavior.service';
+import { SettingsService } from '../settings/settings.service';
 
 @Injectable()
 export class CalculationsService {
@@ -16,21 +16,21 @@ export class CalculationsService {
   ) {}
 
   get isScrolledToTopCondition(): boolean {
-    return this._behaviorService.scrollTop <= this.isScrolledToTopOffset;
+    return this._behaviorService.scrollTop <= this.scrolledToTopOffset;
   }
 
   get isScrolledToBottomCondition(): boolean {
     const top =
       this._behaviorService.scrollTop +
       this._behaviorService.scrollableElement.clientHeight;
-    return top >= this.isScrolledToBottomOffset;
+    return top >= this.scrolledToBottomOffset;
   }
 
-  get isScrolledToTopOffset(): number {
+  get scrolledToTopOffset(): number {
     return this._settings.offset.isScrolledToTop;
   }
 
-  get isScrolledToBottomOffset(): number {
+  get scrolledToBottomOffset(): number {
     return (
       this._behaviorService.scrollableElement.scrollHeight -
       this._settings.offset.isScrolledToBottom
