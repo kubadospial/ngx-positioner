@@ -1,4 +1,4 @@
-version: 2.1
+version: 2
 
 jobs:
   # The test job
@@ -27,18 +27,12 @@ jobs:
           key: v1-dependencies-{{ checksum "package-lock.json" }}
           paths:
             - node_modules
-      # Lint the source code
-      - run:
-          name: Linting
-          command: npm run lint
       # Test the source code
       - run:
           name: Testing
-          command: npm run test -- --no-watch --no-progress --browsers=ChromeHeadlessCI
+          command: npm run test:ci
 
  workflows:
-        version: 2.1
-        # the test workflow
         test_workflow:
             jobs:
                 - deploy:
