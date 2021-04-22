@@ -34,7 +34,7 @@ export class NgxPositionerDirective implements AfterContentInit, OnDestroy {
   @Input() set settings(settings: Settings) {
     this._settingService.settings = settings;
   }
-  @Input() set scrollableElement(selector: string) {
+  @Input('ngxPositioner') set scrollableElementSelector(selector: string) {
     this._setScrollableElement(selector);
   }
   @Input() moveToTop$ = new Subject<void>();
