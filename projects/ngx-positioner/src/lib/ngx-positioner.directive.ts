@@ -54,7 +54,7 @@ export class NgxPositionerDirective implements AfterContentInit, OnDestroy {
     private _calculationsService: CalculationsService,
     private _el: ElementRef,
     private _cd: ChangeDetectorRef,
-    @Inject(DOCUMENT) private _document: Document
+    @Inject(DOCUMENT) private _document
   ) {
     this._moveService.isScrolledToTop$
       .pipe(takeUntil(this._destroy$))
