@@ -1,6 +1,8 @@
 version: 2.1
+
 orbs:
   node: circleci/node@4
+
 jobs:
   test:
     working_directory: ~/projects/ngx-positioner
