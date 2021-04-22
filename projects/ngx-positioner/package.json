@@ -1,12 +1,12 @@
 {
   "name": "@kubadospial/ngx-positioner",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "license": "MIT",
   "description": "Angular directive that helps to manipulate DOM elements. Can check if element is at the bottom/top of relativeElement or move to bottom / top of relativeElement",
   "peerDependencies": {
-    "@angular/common": ">=6.0.0",
-    "@angular/core": ">=6.0.0",
-    "rxjs": ">=6.0.0"
+    "@angular/common": "~10.1.6",
+    "@angular/core": "~10.1.6",
+    "rxjs": "~6.6.0"
   },
   "keywords": [
     "angular directive",

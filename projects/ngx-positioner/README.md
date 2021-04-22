@@ -3,23 +3,8 @@
 If You want to use smooth scroll top/bottom on DOM element or check if element is at the bottom of scrollable element?
 Keep on reading!
 
-ngx-positioner is an Angular 6+ directive which allows to determin position of scrollable DOM element. So basicly the directive tells if scrollable element is scrolled top/bottom.
+ngx-positioner is an Angular 9+ directive which allows to determin position of scrollable DOM element. So basicly the directive tells if scrollable element is scrolled top/bottom.
 Additionaly You can move to bottom/top element using smooth scroll or instant scroll.
-
-## Note
-
-```
-Update:
-You can control speed of moveToTop / moveToBottom by declaring number for both separately:
-settings.smoothScroll.moveToTopSpeed = number / settings.smoothScroll.moveToBottomSpeed = number
-
-Service variable "initialSettings" is deprecated and in future it will remain but it won't be accesable.
-Instead use "settings" variable.
-
----------------------------------------------------------------------------------------------------
-Directive requires Rxjs version >= 6.0.0.
-Full browser compatibility.
-```
 
 ## Demo
 
@@ -29,39 +14,42 @@ Check the [link](https://kubadospial.github.io/ngx-positioner/)
 
 Install ngx-positioner
 
-- npm: `$ npm install ngx-positioner`
-- yarn: `$ yarn add ngx-positioner`
+- npm: `$ npm install @kubadospial/ngx-positioner`
+- yarn: `$ yarn add @kubadospial/ngx-positioner`
 
 import NgxPositionerModule
 
 ```js
-import { NgxPositionerModule } from 'ngx-positioner';
+import { NgxPositionerModule } from '@kubadospial/ngx-positioner';
 
 @NgModule({
-  declarations: [...],
   imports: [
-    ...
     NgxPositionerModule
-  ],
-  providers: []
+  ]
 })
 ```
 
 Use NgxPositionerDirective
 
 ```js
-import { Settings } from 'ngx-positioner';
+import { Settings } from '@kubadospial/ngx-positioner';
 
 
 @Component(...)
 export class SomeComponent {
-  ...
+  moveToTop$ = new Subject<any>();
+  moveToBottom$ = new Subject<any>();
+
   positionerSettings: Settings = {
     smoothScroll: {
       moveToTop: true,
       moveToBottom: true
     }
   };
+
+  onSettingsChanged(settings: Settings) {
+    this.positionerSettings = settings;
+  }
 
   onScrolledToTop(isTop: boolean) {
     this.isScrolledToTop = isTop;
@@ -94,13 +82,15 @@ And
 <div
   class="parent"
   ngxPositioner
-  (isScrolledToTop)="onScrolledToTop($event)"
-  (isScrolledToBottom)="onScrolledToBottom($event)"
+  // or [ngxPositioner]="'.child2'"
   [settings]="positionerSettings"
   [moveToTop$]="moveToTop$"
   [moveToBottom$]="moveToBottom$"
+  (isScrolledToTop)="onScrolledToTop($event)"
+  (isScrolledToBottom)="onScrolledToBottom($event)"
 >
   <div class="child">// long content</div>
+  <div class="child2"> .... </div>
 </div>
 ```
 
@@ -130,22 +120,20 @@ smoothScroll: {
     moveToTop: boolean // default true
     moveToBottomSpeed: number // default 10
     moveToTopSpeed: number // default 10
-},
-scrollableElement: string // querySelector*
-
+}
 ```
-
-\*_if not declared, host of directive will be assigned by default_
 
 ## Directive
 
 ### Inputs:
 
+- ngxPositioner: string;
 - settings: Settings;
 - moveToTop$: Subject;
 - moveToBottom$: Subject;
 
 ```
+ngxPositioner: optional input that allows to pass string for querySelector if you want to assign other scrollable element than default. The default is host of the directive;
 setting: passes settings object;
 moveToTop$: scroll to the top of scrollable element;
 moveToBottom$: scroll to the bottom of scrollable element;
@@ -159,32 +147,6 @@ moveToBottom$: scroll to the bottom of scrollable element;
 ```
 isScrolledToTop: EventEmitter that emits boolean is scrollable element is at top;
 isScrolledToBottom: EventEmitter that emits boolean is scrollable element is at bottom;
-```
-
-## Service
-
-```
-changeSettings$: Subject<Settings>;
-settings: Settings;
-initialSettings: Settings; // this variable is deprecated
-```
-
-You can dynamically change directive's settings by emitting new object:
-
-```js
-import { Settings } from 'ngx-positioner/models';
-import { NgxPositionerService } from 'ngx-positioner';
-
-@Component(...)
-export class SomeComponent {
-  ...
-  constructor(private positionService: NgxPositionerServce) { }
-
-  someMethod(settings: Settings) {
-    this.positionService.changeSettings$.next(settings);
-  }
-}
-
 ```
 
 ## Contributing
