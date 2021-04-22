@@ -2,21 +2,14 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
-import { NgxPositionerModule } from 'ngx-positioner';
+// import { NgxPositionerModule } from 'ngx-positioner';
 import { SettingsComponent } from './settings/settings.component';
-
+import { NgxPositionerModule } from '@kubadospial/ngx-positioner';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    SettingsComponent
-  ],
-  imports: [
-    BrowserModule,
-    NgxPositionerModule,
-    ReactiveFormsModule
-  ],
+  declarations: [AppComponent, SettingsComponent],
+  imports: [BrowserModule, NgxPositionerModule, ReactiveFormsModule],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

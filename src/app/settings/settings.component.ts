@@ -2,7 +2,7 @@ import { Component, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { debounceTime, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
-import { Settings } from 'ngx-positioner';
+import { Settings } from '@kubadospial/ngx-positioner';
 import { INITIAL_SETTINGS } from 'projects/ngx-positioner/src/lib/application';
 
 @Component({
