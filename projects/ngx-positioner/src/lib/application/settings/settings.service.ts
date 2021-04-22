@@ -60,7 +60,7 @@ export class SettingsService {
         },
       };
     } else {
-      console.error(`%c Invalid settings object! `, 'color: #fff');
+      throw new Error(`Invalid settings object!`);
     }
   }
 }
