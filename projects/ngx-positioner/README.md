@@ -8,7 +8,7 @@ Additionaly You can move to bottom/top element using smooth scroll or instant sc
 
 ## Demo
 
-Check the [link](https://kubadospial.github.io/ngx-positioner/)
+Check the [link](https://stackblitz.com/edit/ngx-positioner)
 
 ## Usage
 
@@ -133,8 +133,8 @@ smoothScroll: {
 - moveToBottom$: Subject;
 
 ```
-ngxPositioner: optional input that allows to pass string for querySelector if you want to assign other scrollable element than default. The default is host of the directive;
-setting: passes settings object;
+ngxPositioner: optional input - that allows to pass string for querySelector if you want to assign other scrollable element than default. The default is host of the directive;
+setting: optional input - passes settings object;
 moveToTop$: scroll to the top of scrollable element;
 moveToBottom$: scroll to the bottom of scrollable element;
 ```
