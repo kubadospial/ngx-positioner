@@ -14,8 +14,14 @@ version: 2.1
                     keys:
                     - v1-dependencies-{{ checksum "package-lock.json" }}
                     - v1-dependencies-
-               
+                - run:
+                    name: Install local dependencies
+                    command: npm install
+                - save_cache:
+                    key: v1-dependencies-{{ checksum "package-lock.json" }}
+                    paths:
+                        - node_modules
                 - run:
                     name: Testing
-                    command: npm install && npm run test --no-watch --no-progress --browsers=ChromeHeadlessCI
+                    command: npm run test -- --no-watch --no-progress --browsers=ChromeHeadlessCI
                
