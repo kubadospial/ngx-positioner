@@ -32,15 +32,15 @@ jobs:
           name: Testing
           command: npm run test:ci
 
- workflows:
-        version: 2
-        test_workflow:
-            jobs:
-                - deploy:
-                    filters:
-                        branches:
-                            only:
-                                - develop
-                                - staging
-                                - master
-                                - setup-ci
+workflows:
+  version: 2
+  test_workflow:
+    jobs:
+      - deploy:
+          filters:
+            branches:
+              only:
+                - develop
+                - staging
+                - master
+                - setup-ci
