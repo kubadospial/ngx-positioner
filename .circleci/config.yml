@@ -29,10 +29,4 @@ workflows:
   version: 2.1
   ngx-positioner:
     jobs:
-      - unit_tests:
-          filters:
-            branches:
-              only:
-                - develop
-                - staging
-                - master
+      - unit_tests
