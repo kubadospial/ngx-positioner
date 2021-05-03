@@ -6,7 +6,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "test": "ng test ngx-positioner",
+    "test": "ng test ngx-positioner --code-coverage",
     "test:ci": "npm run test -- --no-watch --no-progress --browsers=ChromeHeadlessCI",
     "lint": "ng lint ngx-positioner",
     "e2e": "ng e2e",

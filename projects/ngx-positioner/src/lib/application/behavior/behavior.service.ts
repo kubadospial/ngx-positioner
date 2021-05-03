@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
 import { ScrollBehavior } from '../../models/scroll-behavior.enum';
 
 @Injectable()
@@ -15,26 +14,26 @@ export class BehaviorService {
   constructor() {}
 
   async scroll(
-    behavior: string,
-    height: number,
+    behavior: ScrollBehavior,
+    distance: number,
     moveSpeed: number
   ): Promise<boolean> {
     return new Promise((resolve) => {
       let i = this.scrollTop;
-      if (height !== i) {
+      if (distance !== i) {
         if (behavior === ScrollBehavior.smooth) {
           const loop = setInterval(() => {
-            if (height < i) {
-              const modulo = (height + i) % 10;
+            if (distance < i) {
+              const modulo = (distance + i) % 10;
               i -= modulo ? modulo : moveSpeed;
-              if (i <= height) {
+              if (i <= distance) {
                 clearInterval(loop);
                 resolve(true);
               }
             } else {
-              const modulo = (height - i) % 10;
+              const modulo = (distance - i) % 10;
               i += modulo ? modulo : moveSpeed;
-              if (i >= height) {
+              if (i >= distance) {
                 clearInterval(loop);
                 resolve(true);
               }
@@ -42,7 +41,7 @@ export class BehaviorService {
             this.scrollTop = i;
           }, 0);
         } else {
-          this.scrollTop = height;
+          this.scrollTop = distance;
           resolve(true);
         }
       }
